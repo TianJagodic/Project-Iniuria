@@ -41,6 +41,15 @@ public class PointsSystem : MonoBehaviour
         
     }
 
+    void FixedUpdate()
+    {
+        if (it.Mode == 1 && itDetection.isDetected)
+        {
+            PlayerPoints += pointsMulipler * Math.Abs((itPoints - 100) / 100);
+            itPoints -= pointsMulipler * Math.Abs((PlayerPoints - 100) / 100);
+        }
+    }
+
     private void Update()
     {
         Debug.Log("P: " + PlayerPoints + "   ;   it: " + itPoints);
