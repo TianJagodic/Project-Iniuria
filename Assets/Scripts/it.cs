@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.VFX;
 using Random = UnityEngine.Random;
 
 public class it : MonoBehaviour
@@ -25,6 +26,9 @@ public class it : MonoBehaviour
     public float jumpForceX;
     public float jumpForceY;
 
+    public float leftStopper;
+    public float rightStopper;
+
     public static int Mode = 0; //can be 0, 1, 2
     public int DificultySetting = 0; //can be 0, 1, 2
     
@@ -33,36 +37,65 @@ public class it : MonoBehaviour
     
     private float nextActionTime = 0.0f;
     public float period = 4f;
- 
-
+    
+    public Material sphereMaterial;
+    
+    //VFX Gradients section
+    public Gradient vfxGradient;
+    public VisualEffect VFX;
+    public bool bloome;
+    private float VFXtime = 0.0f;
+    
     private void Start()
     {
         RB = GetComponent<Rigidbody>();
-        InvokeRepeating("Move", 0f, 2f);
+        VFX.SetInt("SpawnRate", 0);
+        InvokeRepeating("Move", 0f, 1f);
     }
     
     private void FixedUpdate()
     {
         timer += Time.deltaTime;
         Dificulty(timer);
-        
+
+        if (bloome && VFXtime + 5 >= timer)
+        { 
+            VFX.SetInt("SpawnRate", 0);
+            bloome = false;
+        }
+
     }
 
     void Move()
     {
         Vector3 jumpRight = new Vector3(jumpForceX,jumpForceY);
         Vector3 jumpLeft = new Vector3(-jumpForceX, jumpForceY);
-        
 
-        switch (Random.Range(0,2))
+        if (transform.position.x <= leftStopper || transform.position.x >= rightStopper)
         {
-            case 0:
+            if (transform.position.x <= leftStopper)
+            {
                 RB.AddForce(jumpRight);
-                break;
-            case 1:
+            }
+            else
+            {
                 RB.AddForce(jumpLeft);
-                break;
+            }
         }
+        else
+        {
+            switch (Random.Range(0,2))
+            {
+                case 0:
+                    RB.AddForce(jumpRight);
+                    break;
+                case 1:
+                    RB.AddForce(jumpLeft);
+                    break;
+            }
+        }
+
+        
     }
 
     void Dificulty(float time)
@@ -107,19 +140,55 @@ public class it : MonoBehaviour
         switch (mode)
         {
             case 0:
+                Shader(enemy.color, GetComponent<Renderer>().material.color);
                 GetComponent<Renderer>().material = enemy;
                 Mode = 0;
                 break;
             
             case 1:
+                Shader(cry.color, GetComponent<Renderer>().material.color);
                 GetComponent<Renderer>().material = cry;
                 Mode = 1;
                 break;
             
             case 2:
+                Shader(good.color, GetComponent<Renderer>().material.color);
                 GetComponent<Renderer>().material = good;
                 Mode = 2;
                 break;
         }
+        
+        
     }
+
+    void Shader(Color newColor, Color oldColor)
+    {
+        Debug.Log("New mode");
+        sphereMaterial.SetColor("_Color", newColor);
+        
+        GradientColorKey[] colorKey;
+        GradientAlphaKey[] alphaKey;
+        
+        colorKey = new GradientColorKey[2];
+        colorKey[0].color = oldColor;
+        colorKey[0].time = 0.0f;
+        colorKey[1].color = newColor;
+        colorKey[1].time = 1.0f;
+        
+        alphaKey = new GradientAlphaKey[2];
+        alphaKey[0].alpha = 1;
+        alphaKey[0].time = 0.0f;
+        alphaKey[1].alpha = 1;
+        alphaKey[1].time = 1.0f;
+
+        
+        vfxGradient.SetKeys(colorKey, alphaKey);
+        
+        VFX.SetGradient("CurrentGradient", vfxGradient);
+        VFX.SetInt("SpawnRate", 25000);
+
+        bloome = !false;
+        VFXtime = timer;
+    }
+    
 }

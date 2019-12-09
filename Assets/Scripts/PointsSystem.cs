@@ -52,6 +52,6 @@ public class PointsSystem : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("P: " + PlayerPoints + "   ;   it: " + itPoints);
+        //Debug.Log("P: " + PlayerPoints + "   ;   it: " + itPoints);
     }
 }
