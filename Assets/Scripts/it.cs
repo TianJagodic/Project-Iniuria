@@ -32,7 +32,7 @@ public class it : MonoBehaviour
     public static int Mode = 0; //can be 0, 1, 2
     public int DificultySetting = 0; //can be 0, 1, 2
     
-    private float timer = 0.0f;
+    private float DificultyTimer = 0.0f;
     private Rigidbody RB;
     
     private float nextActionTime = 0.0f;
@@ -46,6 +46,9 @@ public class it : MonoBehaviour
     public bool bloome;
     private float VFXtime = 0.0f;
     
+    //General time
+    private float timer = 0.0f;
+
     private void Start()
     {
         RB = GetComponent<Rigidbody>();
@@ -53,12 +56,15 @@ public class it : MonoBehaviour
         InvokeRepeating("Move", 0f, 1f);
     }
     
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        timer += Time.deltaTime;
-        Dificulty(timer);
 
-        if (bloome && VFXtime + 5 >= timer)
+        DificultyTimer += Time.deltaTime;
+        Dificulty(DificultyTimer);
+        
+        
+        timer += Time.deltaTime;
+        if (bloome && VFXtime + 1 >= timer)
         { 
             VFX.SetInt("SpawnRate", 0);
             bloome = false;
@@ -100,14 +106,14 @@ public class it : MonoBehaviour
 
     void Dificulty(float time)
     {
-        //Debug.Log(timer);
+        //Debug.Log(DificultyTimer);
         switch (DificultySetting)
         {
            case 0:
                if (time >= 6)
                {
                    //easy
-                   timer -= 6.0f;
+                   DificultyTimer -= 6.0f;
                    ChangeMode();
                    Move();
                }
@@ -116,7 +122,7 @@ public class it : MonoBehaviour
                if(time >= 5)
                {
                    //hard
-                   timer -= 5.0f;
+                   DificultyTimer -= 5.0f;
                    ChangeMode();
                    Move();
                }
@@ -125,7 +131,7 @@ public class it : MonoBehaviour
                if (time >= 3)
                {
                    //witch
-                   timer -= 3.0f;
+                   DificultyTimer -= 3.0f;
                    ChangeMode();
                    Move();
                }
@@ -135,30 +141,29 @@ public class it : MonoBehaviour
 
     void ChangeMode()
     {
+        Material material = GetComponent<Renderer>().material;
         int mode = Random.Range(0, 3);
 
         switch (mode)
         {
             case 0:
-                Shader(enemy.color, GetComponent<Renderer>().material.color);
+                Shader(enemy.color, material.color);
                 GetComponent<Renderer>().material = enemy;
                 Mode = 0;
                 break;
             
             case 1:
-                Shader(cry.color, GetComponent<Renderer>().material.color);
+                Shader(cry.color, material.color);
                 GetComponent<Renderer>().material = cry;
                 Mode = 1;
                 break;
             
             case 2:
-                Shader(good.color, GetComponent<Renderer>().material.color);
+                Shader(good.color, material.color);
                 GetComponent<Renderer>().material = good;
                 Mode = 2;
                 break;
         }
-        
-        
     }
 
     void Shader(Color newColor, Color oldColor)
@@ -170,9 +175,9 @@ public class it : MonoBehaviour
         GradientAlphaKey[] alphaKey;
         
         colorKey = new GradientColorKey[2];
-        colorKey[0].color = oldColor;
+        colorKey[0].color = newColor;
         colorKey[0].time = 0.0f;
-        colorKey[1].color = newColor;
+        colorKey[1].color = oldColor;
         colorKey[1].time = 1.0f;
         
         alphaKey = new GradientAlphaKey[2];
