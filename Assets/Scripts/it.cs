@@ -64,7 +64,7 @@ public class it : MonoBehaviour
         
         
         timer += Time.deltaTime;
-        if (bloome && VFXtime + 1 >= timer)
+        if (bloome && VFXtime + 1 <= timer)
         { 
             VFX.SetInt("SpawnRate", 0);
             bloome = false;
@@ -168,9 +168,11 @@ public class it : MonoBehaviour
 
     void Shader(Color newColor, Color oldColor)
     {
-        Debug.Log("New mode");
+        //Debug.Log("New mode");
+        //Apply the new color
         sphereMaterial.SetColor("_Color", newColor);
         
+        //Set up the gradient
         GradientColorKey[] colorKey;
         GradientAlphaKey[] alphaKey;
         
@@ -186,14 +188,23 @@ public class it : MonoBehaviour
         alphaKey[1].alpha = 1;
         alphaKey[1].time = 1.0f;
 
-        
+        //Apply the gradient
         vfxGradient.SetKeys(colorKey, alphaKey);
         
+        //Work with the VFX object
         VFX.SetGradient("CurrentGradient", vfxGradient);
         VFX.SetInt("SpawnRate", 25000);
+        
+        MoveObject(VFX.gameObject, this.transform);
+
 
         bloome = !false;
         VFXtime = timer;
+    }
+
+    void MoveObject(GameObject gameObject, Transform Newpos)
+    {
+        gameObject.transform.position = Newpos.position;
     }
     
 }

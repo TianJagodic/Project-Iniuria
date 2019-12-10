@@ -15,6 +15,7 @@
           <e p="PlayerMovement.cs" t="Include" />
           <e p="PointsSystem.cs" t="Include" />
           <e p="TestingScripts" t="Include">
+            <e p="MouseTest.cs" t="Include" />
             <e p="VFXTest.cs" t="Include" />
           </e>
         </e>

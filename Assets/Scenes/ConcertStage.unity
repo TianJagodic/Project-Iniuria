@@ -547,7 +547,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -632,9 +632,10 @@ MonoBehaviour:
   punctualIntensity: 600
   areaIntensity: 200
   enableSpotReflector: 0
+  luxAtDistance: 1
   m_InnerSpotPercent: 0
   lightDimmer: 1
-  volumetricDimmer: 1
+  m_VolumetricDimmer: 1
   lightUnit: 2
   sunDiskSize: 1
   sunHaloSize: 0.1
@@ -651,6 +652,7 @@ MonoBehaviour:
   maxSmoothness: 0.99
   applyRangeAttenuation: 1
   useOldInspector: 0
+  useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 0
   displayLightIntensity: 3.1415927
@@ -660,6 +662,7 @@ MonoBehaviour:
   shadowSoftness: 0.5
   blockerSampleCount: 24
   filterSampleCount: 32
+  minFilterSize: 0.00001
 --- !u!1001 &980279886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -907,11 +910,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: c410fb4977d644b499ea5efff8c472b7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.033
+      value: 1.209
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: c410fb4977d644b499ea5efff8c472b7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.728
+      value: -0.917
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: c410fb4977d644b499ea5efff8c472b7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -992,6 +995,7 @@ GameObject:
   - component: {fileID: 1480626383}
   - component: {fileID: 1480626382}
   - component: {fileID: 1480626381}
+  - component: {fileID: 1480626384}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1032,7 +1036,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -1042,8 +1046,8 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -1063,6 +1067,74 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1480626384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480626380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c1ce4fb46143f46bc5cb5224c934f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 0
+  clearColorMode: 0
+  backgroundColorHDR: {r: 0.025, g: 0.07, b: 0.19, a: 0}
+  clearDepth: 1
+  renderingPath: 0
+  volumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  volumeAnchorOverride: {fileID: 0}
+  aperture: 8
+  shutterSpeed: 0.005
+  iso: 400
+  m_FrameSettings:
+    overrides: 0
+    enableShadow: 1
+    enableContactShadows: 1
+    enableShadowMask: 1
+    enableSSR: 0
+    enableSSAO: 1
+    enableSubsurfaceScattering: 1
+    enableTransmission: 1
+    enableAtmosphericScattering: 1
+    enableVolumetrics: 1
+    enableReprojectionForVolumetrics: 1
+    enableLightLayers: 1
+    diffuseGlobalDimmer: 1
+    specularGlobalDimmer: 1
+    shaderLitMode: 1
+    enableDepthPrepassWithDeferredRendering: 0
+    enableTransparentPrepass: 1
+    enableMotionVectors: 1
+    enableObjectMotionVectors: 1
+    enableDecals: 1
+    enableRoughRefraction: 1
+    enableTransparentPostpass: 1
+    enableDistortion: 1
+    enablePostprocess: 1
+    enableOpaqueObjects: 1
+    enableTransparentObjects: 1
+    enableRealtimePlanarReflection: 1
+    enableMSAA: 0
+    enableAsyncCompute: 1
+    runLightListAsync: 1
+    runSSRAsync: 1
+    runSSAOAsync: 1
+    runContactShadowsAsync: 1
+    runVolumeVoxelizationAsync: 1
+    lightLoopSettings:
+      overrides: 0
+      enableTileAndCluster: 1
+      enableComputeLightEvaluation: 1
+      enableComputeLightVariants: 1
+      enableComputeMaterialVariants: 1
+      enableFptlForForwardOpaque: 1
+      enableBigTilePrepass: 1
+      isFptlEnabled: 1
 --- !u!1001 &1588568709
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1424,6 +1496,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6100051617101886294, guid: 9c0955d139c9f44ce9cc1329c5c662ca,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967294
+      objectReference: {fileID: 0}
+    - target: {fileID: 6100051617339228255, guid: 9c0955d139c9f44ce9cc1329c5c662ca,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967294
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c0955d139c9f44ce9cc1329c5c662ca, type: 3}
 --- !u!1001 &2820745739154648135
@@ -1628,6 +1710,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 2820745739942019071, guid: 9011d30341aca4f5bbbfcaa5b8557d88,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2820745740503775757, guid: 9011d30341aca4f5bbbfcaa5b8557d88,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1636,17 +1723,32 @@ PrefabInstance:
     - target: {fileID: 2820745739918595689, guid: 9011d30341aca4f5bbbfcaa5b8557d88,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.99
+      value: 10.971
+      objectReference: {fileID: 0}
+    - target: {fileID: 2820745739918595689, guid: 9011d30341aca4f5bbbfcaa5b8557d88,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 18.0012
       objectReference: {fileID: 0}
     - target: {fileID: 2820745740694906077, guid: 9011d30341aca4f5bbbfcaa5b8557d88,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 2820745740694906077, guid: 9011d30341aca4f5bbbfcaa5b8557d88,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2820745740956054673, guid: 9011d30341aca4f5bbbfcaa5b8557d88,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 2820745740956054673, guid: 9011d30341aca4f5bbbfcaa5b8557d88,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2820745741070642650, guid: 9011d30341aca4f5bbbfcaa5b8557d88,
         type: 3}
@@ -2422,6 +2524,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2820745739863866651, guid: 9011d30341aca4f5bbbfcaa5b8557d88,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 16.307852
+      objectReference: {fileID: 0}
+    - target: {fileID: 2820745739863866651, guid: 9011d30341aca4f5bbbfcaa5b8557d88,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.68
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9011d30341aca4f5bbbfcaa5b8557d88, type: 3}

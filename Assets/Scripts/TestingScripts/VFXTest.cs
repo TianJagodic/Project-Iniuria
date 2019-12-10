@@ -12,6 +12,7 @@ public class VFXTest : MonoBehaviour
     public bool bloome;
     private float VFXtime = 0.0f;
 
+    //General time
     private float timer = 0.0f;
     
     // Start is called before the first frame update
@@ -24,28 +25,27 @@ public class VFXTest : MonoBehaviour
     void FixedUpdate()
     {
         timer += Time.deltaTime;
-        if (bloome && VFXtime + 1 >= timer)
-        { 
+        if (bloome && ((VFXtime + 1.0f) <= timer))
+        {
             VFX.SetInt("SpawnRate", 0);
             bloome = false;
         }
         
-        if(Input.GetKey(KeyCode.A)) Shader(Color.yellow, Color.green);
+        if(Input.GetKeyUp(KeyCode.A)) Shader(Color.yellow, Color.green);
     }
     
     void Shader(Color newColor, Color oldColor)
     {
+        Debug.Log("New mode");
+        
+
         GradientColorKey[] colorKey;
         GradientAlphaKey[] alphaKey;
         
-        //sphereMaterial.SetColor("_Color", newColor);
-        //vfxGradient.colorKeys[0].color = oldColor;
-        //vfxGradient.colorKeys[1].color = newColor;
-        
         colorKey = new GradientColorKey[2];
-        colorKey[0].color = oldColor;
+        colorKey[0].color = newColor;
         colorKey[0].time = 0.0f;
-        colorKey[1].color = newColor;
+        colorKey[1].color = oldColor;
         colorKey[1].time = 1.0f;
         
         alphaKey = new GradientAlphaKey[2];
@@ -54,13 +54,17 @@ public class VFXTest : MonoBehaviour
         alphaKey[1].alpha = 1;
         alphaKey[1].time = 1.0f;
 
-        
+
         vfxGradient.SetKeys(colorKey, alphaKey);
         
+
         VFX.SetGradient("CurrentGradient", vfxGradient);
         VFX.SetInt("SpawnRate", 25000);
+        
 
         bloome = !false;
         VFXtime = timer;
     }
+
+    
 }
