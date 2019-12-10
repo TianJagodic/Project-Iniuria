@@ -19,22 +19,21 @@ public class MouseTest : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
-        Debug.Log("The player just presed the button");
+        Debug.Log("The player just presed the " + gameObject.name);
 
         switch (gameObject.name)
         {
-            case "DificultyButton":
-                //TODO: Change the dificulty MAKE THE MENU FOR THAT
+            case "PlayButton":
+                //TODO: load the current level that is selected
                 break;
             
             case "LevelButton":
                 //TODO: make level switching
                 break;
             
-            case "PlayButton":
-                //TODO: load the current level that is selected
+            case "DificultyButton":
+                //TODO: Change the dificulty MAKE THE MENU FOR THAT
                 break;
-            
             
             default:
                 break;
