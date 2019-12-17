@@ -20,7 +20,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonUp("Jump") && transform.position.y <= -0.99f)
         {
-            Vector3 jump = new Vector3(0.0f, jumpforce, 0.0f);
+            Vector3 jump = new Vector3(turn * jumpforce, jumpforce, 0.0f);
+
             rb.AddForce(jump);
         }
     }

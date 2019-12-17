@@ -54,6 +54,7 @@ public class it : MonoBehaviour
         RB = GetComponent<Rigidbody>();
         VFX.SetInt("SpawnRate", 0);
         InvokeRepeating("Move", 0f, 1f);
+        ChangeMode();
     }
     
     void FixedUpdate()
@@ -177,10 +178,10 @@ public class it : MonoBehaviour
         GradientAlphaKey[] alphaKey;
         
         colorKey = new GradientColorKey[2];
-        colorKey[0].color = newColor;
+        colorKey[0].color = oldColor;
         colorKey[0].time = 0.0f;
-        colorKey[1].color = oldColor;
-        colorKey[1].time = 1.0f;
+        colorKey[1].color = newColor;
+        colorKey[1].time = 0.8f;
         
         alphaKey = new GradientAlphaKey[2];
         alphaKey[0].alpha = 1;
