@@ -7,16 +7,27 @@ public class itDetection : MonoBehaviour
 {
 
     public static bool isDetected = false;
-    private void OnTriggerStay(Collider other)
+
+
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.tag == "Player")
         {
             isDetected = true;
-            PointsSystem.ReciveData();
         }
-        else
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
         {
-            isDetected = !true;
+            isDetected = false;
         }
+    }
+    
+    private void FixedUpdate()
+    {
+        PointsSystem.ReciveData();
     }
 }

@@ -40,6 +40,9 @@ public class it : MonoBehaviour
     
     public Material sphereMaterial;
     
+    //SCORE text to be recolored
+    public TextMesh itTEXT;
+    
     //VFX Gradients section
     public Gradient vfxGradient;
     public VisualEffect VFX;
@@ -53,13 +56,14 @@ public class it : MonoBehaviour
     {
         RB = GetComponent<Rigidbody>();
         VFX.SetInt("SpawnRate", 0);
-        InvokeRepeating("Move", 0f, 1f);
+        InvokeRepeating("Move", 0f, 2f);
         ChangeMode();
     }
     
     void FixedUpdate()
     {
-
+       // Debug.Log(Mode);
+        
         DificultyTimer += Time.deltaTime;
         Dificulty(DificultyTimer);
         
@@ -150,18 +154,21 @@ public class it : MonoBehaviour
             case 0:
                 Shader(enemy.color, material.color);
                 GetComponent<Renderer>().material = enemy;
+                itTEXT.color = Color.red;
                 Mode = 0;
                 break;
             
             case 1:
                 Shader(cry.color, material.color);
                 GetComponent<Renderer>().material = cry;
+                itTEXT.color = Color.blue;
                 Mode = 1;
                 break;
             
             case 2:
                 Shader(good.color, material.color);
                 GetComponent<Renderer>().material = good;
+                itTEXT.color = Color.green;
                 Mode = 2;
                 break;
         }

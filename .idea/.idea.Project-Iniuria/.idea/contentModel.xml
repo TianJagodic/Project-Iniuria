@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Work\.Rider2019.1\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Work\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_Project-Iniuria.-2063005439.00" t="ExcludeRecursive" />
-    <e p="C:\Users\Work\Desktop\Github\Project-Iniuria" t="IncludeRecursive">
+    <e p="C:\Users\Tian\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Tian\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_Project-Iniuria.-369879564.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Tian\Documents\Github\Project-Iniuria" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
@@ -17,6 +17,11 @@
           <e p="CameraScript.cs" t="Include" />
           <e p="it.cs" t="Include" />
           <e p="itDetection.cs" t="Include" />
+          <e p="LevelLoading" t="Include">
+            <e p="BallRolling.cs" t="Include" />
+            <e p="TownLoader.cs" t="Include" />
+          </e>
+          <e p="MainMenu.cs" t="Include" />
           <e p="PlayerMovement.cs" t="Include" />
           <e p="PointsSystem.cs" t="Include" />
           <e p="TestingScripts" t="Include">

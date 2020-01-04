@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   torque: 40
-  jumpforce: 250
+  jumpforce: 6
   rb: {fileID: 7867825427948091607}
 --- !u!135 &7867825427948091604
 SphereCollider:

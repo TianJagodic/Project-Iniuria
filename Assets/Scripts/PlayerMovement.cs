@@ -18,11 +18,11 @@ public class PlayerMovement : MonoBehaviour
         float turn = Input.GetAxis("Horizontal");
         rb.AddRelativeTorque(Vector3.back * torque * turn);
 
-        if (Input.GetButtonUp("Jump") && transform.position.y <= -0.99f)
+        if (Input.GetButtonUp("Jump") && transform.position.y <= -0.8f)
         {
             Vector3 jump = new Vector3(turn * jumpforce, jumpforce, 0.0f);
 
-            rb.AddForce(jump);
+            rb.velocity = jump;
         }
     }
 }
