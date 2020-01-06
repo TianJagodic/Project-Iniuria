@@ -4,11 +4,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public AudioClip PassDing;
+    public AudioClip ClickDing;
 
     private void OnMouseEnter()
     {
         //Debug.Log("Mouse just enter the: " + this.gameObject.name);
         transform.eulerAngles = new Vector3(-0, 180, 0);
+        this.GetComponent<AudioSource>().PlayOneShot(PassDing);
         Wait(1);
     }
 
@@ -26,6 +29,7 @@ public class MainMenu : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
+        this.GetComponent<AudioSource>().PlayOneShot(ClickDing);
         Debug.Log("The player just presed the " + gameObject.name);
 
         switch (gameObject.name)

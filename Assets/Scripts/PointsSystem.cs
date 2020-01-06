@@ -41,7 +41,7 @@ public class PointsSystem : MonoBehaviour
             
             
             case 1://cry
-                //Debug.Log(itDetection.isDetected);
+                
                 if (itDetection.isDetected)
                 {
                     PlayerPoints -= pointsMulipler; //* 1 * (itPoints / 100);
@@ -69,10 +69,27 @@ public class PointsSystem : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(itPoints >= 100 && PlayerPoints >= 100){
+            EndOfGame("Won");
+        }
+
+        if(itPoints <= 0 || PlayerPoints <= 0){
+            EndOfGame("Lost");
+        }
+
         if (it.Mode == 1 && itDetection.isDetected)
         {
             PlayerPoints += pointsMulipler * Math.Abs((itPoints - 100) / 100);
             itPoints -= pointsMulipler * Math.Abs((PlayerPoints - 100) / 100);
+        }
+    }
+
+    void EndOfGame(string Condition){
+        if(Condition == "Won"){
+            //WON THE GAME
+        }
+        else{
+            //LOST THE GAME
         }
     }
 
@@ -82,38 +99,36 @@ public class PointsSystem : MonoBehaviour
         playerTEXT.text = Math.Round(PlayerPoints, 1).ToString();
     }
 
-    private decimal CreateNumber(decimal number)
+    private void CreateNumber(decimal number)
     {
-        decimal value = 0;
         string NumberString = Math.Round(number, 1).ToString();
 
         foreach (char VARIABLE in NumberString)
         {
             switch (VARIABLE)
             {
-                case (char)48:
+                case (char) 48:
                     break;
-                case (char)49:
+                case (char) 49:
                     break;
-                case (char)50:
+                case (char) 50:
                     break;
-                case (char)51:
+                case (char) 51:
                     break;
-                case (char)52:
+                case (char) 52:
                     break;
-                case (char)53:
+                case (char) 53:
                     break;
-                case(char) 54:
+                case (char) 54:
                     break;
-                case (char)55:
+                case (char) 55:
                     break;
-                case (char)56:
+                case (char) 56:
                     break;
-                case(char) 57:
+                case (char) 57:
                     break;
             }
         }
 
-        return value;
     }
 }

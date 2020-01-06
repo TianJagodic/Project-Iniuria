@@ -947,6 +947,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itTEXT: {fileID: 523315436}
   playerTEXT: {fileID: 1461774997}
+  NumberOne: {fileID: 0}
+  NumberTwo: {fileID: 0}
+  NumberThree: {fileID: 0}
+  NumberFour: {fileID: 0}
+  NumberFive: {fileID: 0}
+  NumberSix: {fileID: 0}
+  NumberSeven: {fileID: 0}
+  NumberEgiht: {fileID: 0}
+  NumberNine: {fileID: 0}
 --- !u!4 &1229378587
 Transform:
   m_ObjectHideFlags: 0
@@ -1347,11 +1356,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1203042084757132417, guid: e3ee8181a184246308c725e9e0798cbe,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5181514242993077470, guid: e3ee8181a184246308c725e9e0798cbe,
         type: 3}
