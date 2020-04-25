@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PointsSystem : MonoBehaviour
 {
@@ -12,8 +13,15 @@ public class PointsSystem : MonoBehaviour
 
     public static float pointsMulipler = 0.07f;
 
+    public static bool isComplete = false;
+
     public TextMesh itTEXT;
     public TextMesh playerTEXT;
+
+
+    //Both of the end of game sings
+    public GameObject Won;
+    public GameObject Lost;
     
     //All the model numbers are here
     public Transform NumberOne;
@@ -26,6 +34,15 @@ public class PointsSystem : MonoBehaviour
     public Transform NumberEgiht;
     public Transform NumberNine;
     
+    void Start(){
+        Time.timeScale = 1;
+        PlayerPoints = 30;
+        itPoints = 30;
+
+        pointsMulipler = 0.07f;
+        isComplete = false;
+        
+    }
 
     public static void ReciveData()
     {
@@ -77,18 +94,21 @@ public class PointsSystem : MonoBehaviour
             EndOfGame("Lost");
         }
 
-        if (it.Mode == 1 && itDetection.isDetected)
-        {
-            PlayerPoints += pointsMulipler * Math.Abs((itPoints - 100) / 100);
-            itPoints -= pointsMulipler * Math.Abs((PlayerPoints - 100) / 100);
-        }
+        
     }
+
 
     void EndOfGame(string Condition){
         if(Condition == "Won"){
             //WON THE GAME
+            Won.SetActive(true); 
+            Time.timeScale = 0.000001f;
+            isComplete = true;
         }
         else{
+            isComplete = true;
+            Time.timeScale = 0.000001f;
+            Lost.SetActive(true); 
             //LOST THE GAME
         }
     }
@@ -97,6 +117,11 @@ public class PointsSystem : MonoBehaviour
     {
         itTEXT.text = Math.Round(itPoints, 1).ToString();
         playerTEXT.text = Math.Round(PlayerPoints, 1).ToString();
+
+        if((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Escape) || Input.GetKey(KeyCode.Return)) && isComplete){
+            Debug.Log("We are trying to load the MainMenu");
+            SceneManager.LoadSceneAsync("MainMenu");
+        }
     }
 
     private void CreateNumber(decimal number)
